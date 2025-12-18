@@ -61,8 +61,25 @@ public class AutoMain_FEB extends LinearOpMode {
         backrightmotor.setPower(-1);
         frontrightmotor.setPower(1);
     }
+
+    public void turnLeft() {
+        backleftmotor.setPower(0.5);
+        frontleftmotor.setPower(0.5);
+        backrightmotor.setPower(1);
+        frontrightmotor.setPower(1);
+
+    }
+
+    public void turnRight() {
+        backleftmotor.setPower(1);
+        frontleftmotor.setPower(1);
+        backrightmotor.setPower(0.5);
+        frontrightmotor.setPower(0.5);
+
+    }
     
     
 }
+
 
 
