@@ -49,7 +49,7 @@ public class Acompt_FEB extends LinearOpMode {
         
         while (opModeIsActive()) {
             double x = gamepad1.left_stick_x;
-            double y = gamepad1.left_stick_y;
+            double y = -gamepad1.left_stick_y;
             double rx = getrot();
             frontleftmotor.setPower((y-x+rx)/2);
             frontrightmotor.setPower((y+x-rx)/2);
@@ -65,4 +65,5 @@ public class Acompt_FEB extends LinearOpMode {
     }
     
 }
+
 
