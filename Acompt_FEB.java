@@ -52,15 +52,6 @@ public class Acompt_FEB extends LinearOpMode {
             backleftmotor.setPower((y+x+rx)/2);
             backrightmotor.setPower((y-x-rx)/2);
 
-            
-            
-            
-            
-            
         }
     }
-    
 }
-
-
-
