@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Auto February 2026")
+@Autonomous(name = "Auto February 2026")
 
 
 public class AutoMain_FEB extends LinearOpMode {
@@ -24,7 +24,9 @@ public class AutoMain_FEB extends LinearOpMode {
         backleftmotor = hardwareMap.get(DcMotor.class, "back left motor");
         frontrightmotor = hardwareMap.get(DcMotor.class, "front right motor");
         frontleftmotor = hardwareMap.get(DcMotor.class, "front left motor");
+        waitForStart();
         // linear code goes here
+        
     }
     
     public void stopMotors() {
@@ -80,6 +82,7 @@ public class AutoMain_FEB extends LinearOpMode {
     
     
 }
+
 
 
 
