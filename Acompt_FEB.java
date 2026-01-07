@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.feb2026_lynn;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+//import com.qualcomm.robotcore.hardware.CRServo;
+//import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
@@ -34,7 +34,8 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
         
     }
-    
+
+    @Override
     public void runOpMode() {
         backrightmotor = hardwareMap.get(DcMotor.class, "back right motor");
         backleftmotor = hardwareMap.get(DcMotor.class, "back left motor");
@@ -55,3 +56,4 @@ public class Acompt_FEB extends LinearOpMode {
         }
     }
 }
+
