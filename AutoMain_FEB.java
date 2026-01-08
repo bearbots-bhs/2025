@@ -15,6 +15,8 @@ public class AutoMain_FEB extends LinearOpMode {
     private DcMotor frontrightmotor;
     private DcMotor frontleftmotor;
     private DcMotor backrightmotor;
+    private ElapsedTime clock = new ElapsedTime();
+
     
     
 
@@ -26,8 +28,26 @@ public class AutoMain_FEB extends LinearOpMode {
         frontrightmotor = hardwareMap.get(DcMotor.class, "front right motor");
         frontleftmotor = hardwareMap.get(DcMotor.class, "front left motor");
         waitForStart();
+        clock.reset();
         if (opModeIsActive()) {
-            // linear code goes here
+        // linear code goes here
+        //Using Clock ~1-2 Seconds of Forward To Reach the Front Row of Balls  
+        moveForward();
+        while(clock.seconds()<=1.5){
+        }
+        stopMotors();
+        clock.reset();
+        turnLeft();
+        while(clock.seconds()<=1){
+        }
+        stopMotors();
+        clock.reset();
+        moveForward();
+        while(clock.seconds()<=1.5){
+        }
+        stopMotors();
+        clock.reset();
+
         }
         
     }
@@ -85,6 +105,7 @@ public class AutoMain_FEB extends LinearOpMode {
     
     
 }
+
 
 
 
