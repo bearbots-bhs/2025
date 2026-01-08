@@ -18,23 +18,6 @@ public class Acompt_FEB extends LinearOpMode {
     private DcMotor frontleftmotor;
     private DcMotor backrightmotor;
 
-    // todo: write your code here
-    private double getrot()
-    {
-        double out = 0;
-        if (gamepad1.left_trigger > 0.1)
-        {
-            out = -0.5;
-
-        }
-        else if (gamepad1.right_trigger > 0.1)
-        {
-            out = 0.5;
-        }
-        return out;
-        
-    }
-
     @Override
     public void runOpMode() {
         backrightmotor = hardwareMap.get(DcMotor.class, "back right motor");
@@ -47,6 +30,13 @@ public class Acompt_FEB extends LinearOpMode {
         while (opModeIsActive()) {
             double x = gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
+            /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
+            This allows gamepad 1 to have primary override capability */
+            if (x == 0.0 && y == 0.0) {
+                x = gamepad2.left_stick_x;
+                y = -gamepad2.left_stick_y;
+            }
+            
             double rx = getrot();
             frontleftmotor.setPower((y-x+rx)/2);
             frontrightmotor.setPower((y+x-rx)/2);
@@ -55,5 +45,22 @@ public class Acompt_FEB extends LinearOpMode {
 
         }
     }
+
+    private double getrot()
+    {
+        double out = 0;
+        if (gamepad1.left_trigger > 0.1)
+        {
+            out = -gamepad1.left_trigger; // value from [-1, 0)
+
+        }
+        else if (gamepad1.right_trigger > 0.1)
+        {
+            out = gamepad1.right_trigger; // value from [0, 1]
+        }
+        return out;
+        
+    }
 }
+
 
