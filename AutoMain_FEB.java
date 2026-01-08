@@ -15,6 +15,9 @@ public class AutoMain_FEB extends LinearOpMode {
     private DcMotor frontrightmotor;
     private DcMotor frontleftmotor;
     private DcMotor backrightmotor;
+    private DcMotor fRubberWheel;
+    private DcMotor bRubberWheel;
+    private DcMotor launch;
     private ElapsedTime clock = new ElapsedTime();
 
     
@@ -27,26 +30,33 @@ public class AutoMain_FEB extends LinearOpMode {
         backleftmotor = hardwareMap.get(DcMotor.class, "back left motor");
         frontrightmotor = hardwareMap.get(DcMotor.class, "front right motor");
         frontleftmotor = hardwareMap.get(DcMotor.class, "front left motor");
+        fRubberWheel = hardwareMap.get(DcMotor.class, "front wheel");
+        bRubberWheel = hardwareMap.get(DcMotor.class, "back wheel");
+        launch = hardwareMap.get(DcMotor.class, "launch");
+        
         waitForStart();
-        clock.reset();
         if (opModeIsActive()) {
-        // linear code goes here
-        //Using Clock ~1-2 Seconds of Forward To Reach the Front Row of Balls  
-        moveForward();
-        while(clock.seconds()<=1.5){
-        }
-        stopMotors();
-        clock.reset();
-        turnLeft();
-        while(clock.seconds()<=1){
-        }
-        stopMotors();
-        clock.reset();
-        moveForward();
-        while(clock.seconds()<=1.5){
-        }
-        stopMotors();
-        clock.reset();
+            clock.reset();
+                
+            //Using Clock ~1-2 Seconds of Forward To Reach the Front Row of Balls  
+            moveForward();
+            while(clock.seconds()<=1.5){
+            }
+            stopMotors();
+            
+            clock.reset();
+            turnLeft();
+            while(clock.seconds()<=1){
+            }
+            stopMotors();
+            
+            clock.reset();
+            moveForward();
+            while(clock.seconds()<=1.5){
+            }
+            stopMotors();
+            
+            clock.reset();
 
         }
         
@@ -105,6 +115,7 @@ public class AutoMain_FEB extends LinearOpMode {
     
     
 }
+
 
 
 
