@@ -17,9 +17,9 @@ public class Acompt_FEB extends LinearOpMode {
     private DcMotor frontrightmotor;
     private DcMotor frontleftmotor;
     private DcMotor backrightmotor;
-    private DcMotor fRubberWheel;
-    private DcMotor bRubberWheel;
-    private DcMotor launch;
+    private DcMotor fRubberWheel; // Front Rubber Band Intake Wheel
+    private DcMotor bRubberWheel; // Back Rubber Band Intake Wheel
+    private DcMotor launch; // Launch Rubber Wheel set with Gearbox
 
     @Override
     public void runOpMode() {
@@ -130,6 +130,7 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
     }
 }
+
 
 
 
