@@ -67,7 +67,7 @@ public class Acompt_FEB extends LinearOpMode {
         }
         else if (gamepad1.right_trigger > 0.1)
         {
-            out = gamepad1.right_trigger; // value from [0, 1]
+            out = gamepad1.right_trigger; // value from (0, 1]
         }
         return out;
         
@@ -130,6 +130,7 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
     }
 }
+
 
 
 
