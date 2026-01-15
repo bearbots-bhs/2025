@@ -30,11 +30,19 @@ public class Acompt_FEB extends LinearOpMode {
         bRubberWheel = hardwareMap.get(DcMotor.class, "back wheel");
         launch = hardwareMap.get(DcMotor.class, "launch");
         
+        backrightmotor.setDirection(DcMotor.Direction.REVERSE);
+        backleftmotor.setDirection(DcMotor.Direction.REVERSE);
+        frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
+        frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
+        
         waitForStart();
         
         while (opModeIsActive()) {
-            double x = gamepad1.left_stick_x;
-            double y = gamepad1.left_stick_y;
+            //The gamepad has a confusing setting where up/down outputs as "x" and left/right outputs as "y"
+            //We have our variable x set as left/right and our variable y set as forward/back. Thus, we have a confusing mismatch as shown below
+            // for some reason top left is set as (0,0) so the y values range from (-1,0) instead of 
+            double x = -gamepad1.left_stick_y;
+            double y = -gamepad1.left_stick_x;
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
             This allows gamepad 1 to have primary override capability */
             if (x == 0.0 && y == 0.0) {
@@ -82,7 +90,7 @@ public class Acompt_FEB extends LinearOpMode {
         }
         if (mode == 1)
         {
-            out = 1;
+            out = 0.5;
         }    
         else
         {
