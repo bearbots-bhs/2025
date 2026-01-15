@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.feb2026_lynn;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 //import com.qualcomm.robotcore.hardware.CRServo;
 //import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -35,7 +34,7 @@ public class Acompt_FEB extends LinearOpMode {
         
         while (opModeIsActive()) {
             double x = gamepad1.left_stick_x;
-            double y = -gamepad1.left_stick_y;
+            double y = gamepad1.left_stick_y;
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
             This allows gamepad 1 to have primary override capability */
             if (x == 0.0 && y == 0.0) {
@@ -74,7 +73,7 @@ public class Acompt_FEB extends LinearOpMode {
     }
     private double getFront()
     {
-        double out = 1;
+        double out = 0;
         double mode = 0;
         if (gamepad1.b)
         {
@@ -83,11 +82,11 @@ public class Acompt_FEB extends LinearOpMode {
         }
         if (mode == 1)
         {
-            out = 0;
+            out = 1;
         }    
         else
         {
-            out = 1;
+            out = 0;
         }
         return out;
     }
@@ -112,7 +111,7 @@ public class Acompt_FEB extends LinearOpMode {
     }
     private double getLaunch()
     {
-        double out = 1;
+        double out = 0;
         double mode = 0;
         if (gamepad1.x)
         {
@@ -121,16 +120,15 @@ public class Acompt_FEB extends LinearOpMode {
         }
         if (mode == 1)
         {
-            out = 0;
+            out = 1;
         }    
         else
         {
-            out = 1;
+            out = 0;
         }
         return out;
     }
 }
-
 
 
 
