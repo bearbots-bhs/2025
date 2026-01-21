@@ -48,8 +48,8 @@ public class Acompt_FEB extends LinearOpMode {
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
             This allows gamepad 1 to have primary override capability */
             if (x == 0.0 && y == 0.0) {
-                x = gamepad2.left_stick_x;
-                y = -gamepad2.left_stick_y;
+                x = gamepad2.left_stick_y;
+                y = -gamepad2.left_stick_x;
             }
             
             double rx = getRot();
@@ -139,3 +139,4 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
     }
 }
+
