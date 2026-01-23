@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@TeleOp(name = "ACompt February 2026")
+@TeleOp(name = "ACompt Jan 2026")
 
 public class Acompt_FEB extends LinearOpMode {
     
@@ -139,4 +139,5 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
     }
 }
+
 
