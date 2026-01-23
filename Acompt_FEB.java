@@ -57,8 +57,8 @@ public class Acompt_FEB extends LinearOpMode {
             frontrightmotor.setPower((y+x-rx)/2);
             backleftmotor.setPower((y+x+rx)/2);
             backrightmotor.setPower((y-x-rx)/2);
-            fRubberWheel.setPower(getFront());
-            bRubberWheel.setPower(getBack());
+            fRubberWheel.setPower(getIntake())
+            bRubberWheel.setPower(getIntake());
             launch.setPower(getLaunch());
 
             
@@ -81,6 +81,21 @@ public class Acompt_FEB extends LinearOpMode {
         return out;
         
     }
+
+    private double getIntake() {
+        if (gamepad1.b || gamepad1.x) {
+            return 0.5;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    private double getLaunch() {
+        if (gamepad1.
+    }
+        
+    
     private double getFront()
     {
         double out = 0;
@@ -119,6 +134,8 @@ public class Acompt_FEB extends LinearOpMode {
         }
         return out;
     }
+
+        /*
     private double getLaunch()
     {
         double out = 0;
@@ -138,6 +155,9 @@ public class Acompt_FEB extends LinearOpMode {
         }
         return out;
     }
+
+        */
 }
+
 
 
