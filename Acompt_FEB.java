@@ -65,10 +65,7 @@ public class Acompt_FEB extends LinearOpMode {
             }
             
             double rx = getRot();
-            frontleftmotor.setPower((y-x+rx)/2);
-            frontrightmotor.setPower((y+x-rx)/2);
-            backleftmotor.setPower((y+x+rx)/2);
-            backrightmotor.setPower((y-x-rx)/2);
+            
             
             if (mode == 0) {
                 fRubberWheel.setPower(getIntake())
@@ -150,6 +147,12 @@ public class Acompt_FEB extends LinearOpMode {
                 frontrightmotor.setPower(0.5);
                 backrightmotor.setPower(-0.5);
                 backleftmotor.setPower(0.5);
+            }
+            else {
+                frontleftmotor.setPower((y-x+rx)/2);
+                frontrightmotor.setPower((y+x-rx)/2);
+                backleftmotor.setPower((y+x+rx)/2);
+                backrightmotor.setPower((y-x-rx)/2);
             }
 
             if (invert == 1) {
@@ -338,6 +341,7 @@ public class Acompt_FEB extends LinearOpMode {
     }
     */
 }
+
 
 
 
