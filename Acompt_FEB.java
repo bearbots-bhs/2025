@@ -34,6 +34,18 @@ public class Acompt_FEB extends LinearOpMode {
         backleftmotor.setDirection(DcMotor.Direction.REVERSE);
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
+
+        int mode = 0; 
+        boolean inverted = false; // Mode is 0 for hold button down; Mode is 1 for toggle
+
+        boolean toggle_intake = false;
+        boolean toggle_launch = false;
+
+        boolean toggleLock_mode = false;
+        boolean toggleLock_invert = false;
+        
+        boolean toggleLock_intake = false;
+        boolean toggleLock_launch = false;
         
         waitForStart();
         
@@ -57,11 +69,31 @@ public class Acompt_FEB extends LinearOpMode {
             frontrightmotor.setPower((y+x-rx)/2);
             backleftmotor.setPower((y+x+rx)/2);
             backrightmotor.setPower((y-x-rx)/2);
-            fRubberWheel.setPower(getIntake())
-            bRubberWheel.setPower(getIntake());
-            launch.setPower(getLaunch());
-
             
+            if (mode == 0) {
+                fRubberWheel.setPower(getIntake())
+                bRubberWheel.setPower(getIntake());
+                launch.setPower(getLaunch());
+            }
+            else {
+                fRubberWheel.setPower(toggleIntake())
+                bRubberWheel.setPower(toggleIntake());
+                launch.setPower(toggleLaunch());
+            }
+
+            if (mode == 0) {
+                telemetry.addData("Mode", "Hold Down");
+            }
+            else {
+                telemetry.addData("Mode", "Toggle");
+            }
+            if (inverted) {
+                telemetry.addData("Inverted", "True");
+            }
+            else {
+                telemetry.addData("Inverted", "False");
+            }
+            telemetry.update();
 
         }
     }
@@ -82,8 +114,16 @@ public class Acompt_FEB extends LinearOpMode {
         
     }
 
+    /*
+        <x>: intake and launch
+        <b>: launch
+        <a>: intake
+    */
     private double getIntake() {
-        if (gamepad1.b || gamepad1.x) {
+        if (gamepad1.a || gamepad1.x) {
+            return 0.5;
+        }
+        else if (gamepad2.a || gamepad2.x) {
             return 0.5;
         }
         else {
@@ -92,10 +132,70 @@ public class Acompt_FEB extends LinearOpMode {
     }
 
     private double getLaunch() {
-        if (gamepad1.
+        if (gamepad1.b || gamepad1.x) {
+            return 1;
+        }
+        else if (gamepad2.b || gamepad2.x) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    private double toggleIntake() {
+        if (!toggleLock_intake) {
+           if (gamepad1.x || gamepad1.a || gamepad2.x || gamepad2.a) {
+               if (toggle_intake) {
+                   toggle_intake = false;
+               }
+               else {
+                   toggle_intake = true;
+               }
+               toggleLock_intake = true;
+           }
+        }
+        else {
+            if (!gamepad1.x && !gamepad1.a && !gamepad2.x && !gamepad2.a) {
+                toggleLock_intake = false;
+            }
+        }
+
+        if (toggle_intake) {
+            return 0.5;
+        }
+        else {
+            return 0;
+        }
+    }
+
+     private double toggleLaunch() {
+        if (!toggleLock_launch) {
+           if (gamepad1.x || gamepad1.a || gamepad2.x || gamepad2.a) {
+               if (toggle_launch) {
+                   toggle_launch = false;
+               }
+               else {
+                   toggle_launch = true;
+               }
+               toggleLock_launch = true;
+           }
+        }
+        else {
+            if (!gamepad1.x && !gamepad1.a && !gamepad2.x && !gamepad2.a) {
+                toggleLock_launch = false;
+            }
+        }
+
+        if (toggle_launch) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
         
-    
+    /*
     private double getFront()
     {
         double out = 0;
@@ -134,8 +234,7 @@ public class Acompt_FEB extends LinearOpMode {
         }
         return out;
     }
-
-        /*
+    
     private double getLaunch()
     {
         double out = 0;
@@ -155,9 +254,9 @@ public class Acompt_FEB extends LinearOpMode {
         }
         return out;
     }
-
-        */
+    */
 }
+
 
 
 
