@@ -35,8 +35,8 @@ public class Acompt_FEB extends LinearOpMode {
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
 
-        int mode = 0; 
-        boolean inverted = false; // Mode is 0 for hold button down; Mode is 1 for toggle
+        int mode = 0; // Mode is 0 for hold button down; Mode is 1 for toggle
+        boolean inverted = 0; // 0 and 1 correspond to false and true
 
         boolean toggle_intake = false;
         boolean toggle_launch = false;
@@ -79,6 +79,39 @@ public class Acompt_FEB extends LinearOpMode {
                 fRubberWheel.setPower(toggleIntake())
                 bRubberWheel.setPower(toggleIntake());
                 launch.setPower(toggleLaunch());
+            }
+
+            if (gamepad1.left_trigger || gamepad2.left_trigger) {
+                if (!toggleLock_mode) {
+                    mode++;
+                    mode = mode%2;
+                    toggleLock_mode = true;
+                }
+            }
+            else {
+                toggleLock_mode = false;
+            }
+            
+             if (gamepad1.right_trigger || gamepad2.right_trigger) {
+                if (!toggleLock_invert) {
+                    invert++;
+                    invert = invert%2;
+                    toggleLock_invert = true;
+                }
+            }
+            else {
+                toggleLock_invert = false;
+            }
+
+            if (invert == 1) {
+                fRubberWheel.setDirection(DcMotor.Direction.REVERSE);
+                bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
+                launch.setDirection(DcMotor.Direction.REVERSE);
+            }
+            else {
+                fRubberWheel.setDirection(DcMotor.Direction.FORWARD);
+                bRubberWheel.setDirection(DcMotor.Direction.FORWARD);
+                launch.setDirection(DcMotor.Direction.FORWARD);
             }
 
             if (mode == 0) {
@@ -256,6 +289,7 @@ public class Acompt_FEB extends LinearOpMode {
     }
     */
 }
+
 
 
 
