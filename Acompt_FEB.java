@@ -19,6 +19,18 @@ public class Acompt_FEB extends LinearOpMode {
     private DcMotor fRubberWheel; // Front Rubber Band Intake Wheel
     private DcMotor bRubberWheel; // Back Rubber Band Intake Wheel
     private DcMotor launch; // Launch Rubber Wheel set with Gearbox
+    
+    int mode = 0; // Mode is 0 for hold button down; Mode is 1 for toggle
+    int inverted = 0; // 0 and 1 correspond to false and true
+
+    boolean toggle_intake = false;
+    boolean toggle_launch = false;
+
+    boolean toggleLock_mode = false;
+    boolean toggleLock_invert = false;
+    
+    boolean toggleLock_intake = false;
+    boolean toggleLock_launch = false;
 
     @Override
     public void runOpMode() {
@@ -34,18 +46,6 @@ public class Acompt_FEB extends LinearOpMode {
         backleftmotor.setDirection(DcMotor.Direction.REVERSE);
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
-
-        int mode = 0; // Mode is 0 for hold button down; Mode is 1 for toggle
-        boolean inverted = 0; // 0 and 1 correspond to false and true
-
-        boolean toggle_intake = false;
-        boolean toggle_launch = false;
-
-        boolean toggleLock_mode = false;
-        boolean toggleLock_invert = false;
-        
-        boolean toggleLock_intake = false;
-        boolean toggleLock_launch = false;
         
         waitForStart();
         
@@ -68,17 +68,17 @@ public class Acompt_FEB extends LinearOpMode {
             
             
             if (mode == 0) {
-                fRubberWheel.setPower(getIntake())
+                fRubberWheel.setPower(getIntake());
                 bRubberWheel.setPower(getIntake());
                 launch.setPower(getLaunch());
             }
             else {
-                fRubberWheel.setPower(toggleIntake())
+                fRubberWheel.setPower(toggleIntake());
                 bRubberWheel.setPower(toggleIntake());
                 launch.setPower(toggleLaunch());
             }
 
-            if (gamepad1.left_trigger || gamepad2.left_trigger) {
+            if (gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) {
                 if (!toggleLock_mode) {
                     mode++;
                     mode = mode%2;
@@ -89,10 +89,10 @@ public class Acompt_FEB extends LinearOpMode {
                 toggleLock_mode = false;
             }
             
-             if (gamepad1.right_trigger || gamepad2.right_trigger) {
+             if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
                 if (!toggleLock_invert) {
-                    invert++;
-                    invert = invert%2;
+                    inverted++;
+                    inverted = inverted%2;
                     toggleLock_invert = true;
                 }
             }
@@ -155,7 +155,7 @@ public class Acompt_FEB extends LinearOpMode {
                 backrightmotor.setPower((y-x-rx)/2);
             }
 
-            if (invert == 1) {
+            if (inverted == 1) {
                 fRubberWheel.setDirection(DcMotor.Direction.REVERSE);
                 bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
                 launch.setDirection(DcMotor.Direction.REVERSE);
@@ -172,7 +172,7 @@ public class Acompt_FEB extends LinearOpMode {
             else {
                 telemetry.addData("Mode", "Toggle");
             }
-            if (inverted) {
+            if (inverted == 1) {
                 telemetry.addData("Inverted", "True");
             }
             else {
@@ -337,11 +337,3 @@ public class Acompt_FEB extends LinearOpMode {
     }
     */
 }
-
-
-
-
-
-
-
-
