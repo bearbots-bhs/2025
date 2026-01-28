@@ -15,6 +15,8 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.*;
 
 
+
+
 @TeleOp(name = "ACompt Jan 2026")
 
 public class Acompt_FEB extends LinearOpMode {
@@ -56,12 +58,13 @@ public class Acompt_FEB extends LinearOpMode {
         backleftmotor.setDirection(DcMotor.Direction.REVERSE);
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
+
         initAprilTag();
         detections = tag.getDetections();
         for (AprilTagDetection detection : detections)
         {
          ;   
-        }    
+        } 
         
         waitForStart();
         
@@ -72,7 +75,7 @@ public class Acompt_FEB extends LinearOpMode {
             Thus, we have a confusing mismatch as shown below as, for some reason, top left is set as (0,0), so the y values range from (-1,0) instead */
             
             double x = -gamepad1.left_stick_y;
-            double y = -gamepad1.left_stick_x;
+            double y = gamepad1.left_stick_x;
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
             This allows gamepad 1 to have primary override capability */
             if (x == 0.0 && y == 0.0) {
@@ -94,7 +97,7 @@ public class Acompt_FEB extends LinearOpMode {
                 launch.setPower(toggleLaunch());
             }
 
-            if (gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) {
+            if (gamepad1.left_bumper || gamepad2.left_bumper) {
                 if (!toggleLock_mode) {
                     mode++;
                     mode = mode%2;
@@ -105,7 +108,7 @@ public class Acompt_FEB extends LinearOpMode {
                 toggleLock_mode = false;
             }
             
-             if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
+             if (gamepad1.right_bumper || gamepad2.right_bumper ) {
                 if (!toggleLock_invert) {
                     inverted++;
                     inverted = inverted%2;
@@ -173,13 +176,13 @@ public class Acompt_FEB extends LinearOpMode {
 
             if (inverted == 1) {
                 fRubberWheel.setDirection(DcMotor.Direction.REVERSE);
-                bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
-                launch.setDirection(DcMotor.Direction.REVERSE);
+                bRubberWheel.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
+                launch.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
             }
             else {
                 fRubberWheel.setDirection(DcMotor.Direction.FORWARD);
-                bRubberWheel.setDirection(DcMotor.Direction.FORWARD);
-                launch.setDirection(DcMotor.Direction.FORWARD);
+                bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
+                launch.setDirection(DcMotor.Direction.REVERSE);
             }
 
             if (mode == 0) {
@@ -198,8 +201,8 @@ public class Acompt_FEB extends LinearOpMode {
 
         }
     }
-    private void initAprilTag()
-    {
+
+    private void initAprilTag() {
         tag = new AprilTagProcessor.Builder().build();
         portal = new VisionPortal.Builder().setCamera(HardwareMap.get(WebcamName.class,"Webcam 1")).addProcessor(tag).build();
         
@@ -252,8 +255,9 @@ public class Acompt_FEB extends LinearOpMode {
     }
 
     private double toggleIntake() {
-        if (!toggleLock_intake) {
-           if (gamepad1.x || gamepad1.a || gamepad2.x || gamepad2.a) {
+        if (gamepad1.a || gamepad2.a) {
+            if (!toggleLock_intake) {
+           
                if (toggle_intake) {
                    toggle_intake = false;
                }
@@ -262,10 +266,12 @@ public class Acompt_FEB extends LinearOpMode {
                }
                toggleLock_intake = true;
            }
+
         }
         else {
             toggleLock_intake = false;
         }
+        
 
         if (toggle_intake) {
             return 0.5;
@@ -276,8 +282,9 @@ public class Acompt_FEB extends LinearOpMode {
     }
 
      private double toggleLaunch() {
-        if (!toggleLock_launch) {
-           if (gamepad1.x || gamepad1.a || gamepad2.x || gamepad2.a) {
+        if (gamepad1.b || gamepad2.b) {
+            if (!toggleLock_launch) {
+           
                if (toggle_launch) {
                    toggle_launch = false;
                }
@@ -286,78 +293,18 @@ public class Acompt_FEB extends LinearOpMode {
                }
                toggleLock_launch = true;
            }
+
         }
         else {
             toggleLock_launch = false;
         }
+        
 
         if (toggle_launch) {
-            return 1;
+            return 0.5;
         }
         else {
             return 0;
         }
     }
-        
-    /*
-    private double getFront()
-    {
-        double out = 0;
-        double mode = 0;
-        if (gamepad1.b)
-        {
-            mode = mode+1;
-            mode = mode %2;
-        }
-        if (mode == 1)
-        {
-            out = 0.5;
-        }    
-        else
-        {
-            out = 0;
-        }
-        return out;
-    }
-    private double getBack()
-    {
-        double out = 1;
-        double mode = 0;
-        if (gamepad1.a)
-        {
-            mode = mode+1;
-            mode = mode %2;
-        }
-        if (mode == 1)
-        {
-            out = 0;
-        }    
-        else
-        {
-            out = 1;
-        }
-        return out;
-    }
-    
-    private double getLaunch()
-    {
-        double out = 0;
-        double mode = 0;
-        if (gamepad1.x)
-        {
-            mode = mode+1;
-            mode = mode %2;
-        }
-        if (mode == 1)
-        {
-            out = 1;
-        }    
-        else
-        {
-            out = 0;
-        }
-        return out;
-    }
-    */
 }
-
