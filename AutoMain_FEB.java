@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvWebcam;
-import org.openftc.easyopencv.OpenCvCamera;
+//import org.openftc.easyopencv.OpenCvCameraFactory;
+//import org.openftc.easyopencv.OpenCvWebcam;
+//import org.openftc.easyopencv.OpenCvCamera;
 
 
 @Autonomous(name = "Auto January 2026 - Red")
@@ -22,7 +22,7 @@ public class AutoMain_FEB extends LinearOpMode {
     private DcMotor fRubberWheel; // Front Rubber Band Intake Wheel
     private DcMotor bRubberWheel; // Back Rubber Band Intake Wheel
     private DcMotor launch; // Launch Rubber Wheel set with Gearbox
-    private OpenCvWebcam webcam;
+    //private WebcamName webcam;
 
     private ElapsedTime clock = new ElapsedTime();
 
@@ -35,7 +35,7 @@ public class AutoMain_FEB extends LinearOpMode {
         fRubberWheel = hardwareMap.get(DcMotor.class, "front wheel");
         bRubberWheel = hardwareMap.get(DcMotor.class, "back wheel");
         launch = hardwareMap.get(DcMotor.class, "launch");
-        webcam = hardwareMap.get(WebcamName.class, "Webcam");
+        //webcam = hardwareMap.get(WebcamName.class, "Webcam"); (Not sure how this works; we'll fix this later)
 
         // We set these based on how the motors are physically installed
         backrightmotor.setDirection(DcMotor.Direction.REVERSE);
@@ -154,6 +154,7 @@ public class AutoMain_FEB extends LinearOpMode {
     
     
 }
+
 
 
 
