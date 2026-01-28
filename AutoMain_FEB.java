@@ -83,7 +83,11 @@ public class AutoMain_FEB extends LinearOpMode {
             }
             stopMotors();
             clock.reset();
-
+            launch.setPower(0.5);
+            while(clock.seconds()<=3){
+            }
+            launch.setPower(0);
+            clock.reset();
 
         }
         
@@ -154,6 +158,7 @@ public class AutoMain_FEB extends LinearOpMode {
     
     
 }
+
 
 
 
