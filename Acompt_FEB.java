@@ -59,12 +59,7 @@ public class Acompt_FEB extends LinearOpMode {
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
 
-        initAprilTag();
-        detections = tag.getDetections();
-        for (AprilTagDetection detection : detections)
-        {
-         ;   
-        } 
+        
         
         waitForStart();
         
@@ -73,6 +68,12 @@ public class Acompt_FEB extends LinearOpMode {
             /* The gamepad has a confusing setting where up/down outputs as "x" and left/right outputs as "y"
             We have our variable x set as left/right and our variable y set as forward/back. 
             Thus, we have a confusing mismatch as shown below as, for some reason, top left is set as (0,0), so the y values range from (-1,0) instead */
+            initAprilTag();
+            detections = tag.getDetections();
+            for (AprilTagDetection detection : detections)
+            {
+             ;   
+            } 
             
             double x = -gamepad1.left_stick_y;
             double y = gamepad1.left_stick_x;
@@ -308,3 +309,4 @@ public class Acompt_FEB extends LinearOpMode {
         }
     }
 }
+
