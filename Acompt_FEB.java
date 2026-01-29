@@ -28,9 +28,6 @@ public class Acompt_FEB extends LinearOpMode {
     private DcMotor fRubberWheel; // Front Rubber Band Intake Wheel
     private DcMotor bRubberWheel; // Back Rubber Band Intake Wheel
     private DcMotor launch; // Launch Rubber Wheel set with Gearbox
-    private ArrayList<AprilTagDetection> detections = new ArrayList<AprilTagDetection>();
-    private AprilTagProcessor tag;
-    private VisionPortal portal;
     
     int mode = 0; // Mode is 0 for hold button down; Mode is 1 for toggle
     int inverted = 0; // 0 and 1 correspond to false and true
@@ -68,13 +65,7 @@ public class Acompt_FEB extends LinearOpMode {
             /* The gamepad has a confusing setting where up/down outputs as "x" and left/right outputs as "y"
             We have our variable x set as left/right and our variable y set as forward/back. 
             Thus, we have a confusing mismatch as shown below as, for some reason, top left is set as (0,0), so the y values range from (-1,0) instead */
-            initAprilTag();
-            detections = tag.getDetections();
-            for (AprilTagDetection detection : detections)
-            {
-             ;   
-            } 
-            
+       
             double x = -gamepad1.left_stick_y;
             double y = gamepad1.left_stick_x;
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
@@ -203,13 +194,6 @@ public class Acompt_FEB extends LinearOpMode {
         }
     }
 
-    private void initAprilTag() {
-        tag = new AprilTagProcessor.Builder().build();
-        portal = new VisionPortal.Builder().setCamera(HardwareMap.get(WebcamName.class,"Webcam 1")).addProcessor(tag).build();
-        
-        
-    }
-
     private double getRot()
     {
         double out = 0;
@@ -309,4 +293,5 @@ public class Acompt_FEB extends LinearOpMode {
         }
     }
 }
+
 
