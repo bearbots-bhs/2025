@@ -6,15 +6,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import java.util.*;
-
-
 
 
 @TeleOp(name = "ACompt Jan 2026")
@@ -55,19 +46,29 @@ public class Acompt_FEB extends LinearOpMode {
         backleftmotor.setDirection(DcMotor.Direction.REVERSE);
         frontrightmotor.setDirection(DcMotor.Direction.FORWARD);
         frontleftmotor.setDirection(DcMotor.Direction.FORWARD);
-
-        
         
         waitForStart();
         
         while (opModeIsActive()) {
+            //bRubberWheel.setPower(1);
+            
+            if (inverted == 1) {
+                fRubberWheel.setDirection(DcMotor.Direction.REVERSE);
+                bRubberWheel.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
+                launch.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
+            }
+            else {
+                fRubberWheel.setDirection(DcMotor.Direction.FORWARD);
+                bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
+                launch.setDirection(DcMotor.Direction.REVERSE);
+            }
             
             /* The gamepad has a confusing setting where up/down outputs as "x" and left/right outputs as "y"
             We have our variable x set as left/right and our variable y set as forward/back. 
             Thus, we have a confusing mismatch as shown below as, for some reason, top left is set as (0,0), so the y values range from (-1,0) instead */
-       
+            
             double x = -gamepad1.left_stick_y;
-            double y = gamepad1.left_stick_x;
+            double y = -gamepad1.left_stick_x;
             /* If gamepad 1 is not controlling drivetrain, we give gamepad 2 the capability to use the drivetrain. 
             This allows gamepad 1 to have primary override capability */
             if (x == 0.0 && y == 0.0) {
@@ -110,7 +111,8 @@ public class Acompt_FEB extends LinearOpMode {
             else {
                 toggleLock_invert = false;
             }
-
+            
+            /*
             if (gamepad1.dpad_up) {
                 frontleftmotor.setPower(0.5);
                 frontrightmotor.setPower(0.5);
@@ -165,16 +167,26 @@ public class Acompt_FEB extends LinearOpMode {
                 backleftmotor.setPower((y+x+rx)/2);
                 backrightmotor.setPower((y-x-rx)/2);
             }
-
-            if (inverted == 1) {
-                fRubberWheel.setDirection(DcMotor.Direction.REVERSE);
-                bRubberWheel.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
-                launch.setDirection(DcMotor.Direction.FORWARD); // Inately reversed, so we just do the opposite
+            */
+            
+            frontleftmotor.setPower((y-x+rx)/2);
+            frontrightmotor.setPower((y+x-rx)/2);
+            backleftmotor.setPower((y+x+rx)/2);
+            backrightmotor.setPower((y-x-rx)/2);
+            
+            
+            // Basic turning, gets the job done
+            if (gamepad1.dpad_left || gamepad2.dpad_left) {
+                backrightmotor.setPower(-0.5);
+                backleftmotor.setPower(-0.5);
+                frontrightmotor.setPower(1);
+                frontleftmotor.setPower(-1);
             }
-            else {
-                fRubberWheel.setDirection(DcMotor.Direction.FORWARD);
-                bRubberWheel.setDirection(DcMotor.Direction.REVERSE);
-                launch.setDirection(DcMotor.Direction.REVERSE);
+            if (gamepad1.dpad_right || gamepad2.dpad_right) {
+                backrightmotor.setPower(0.5);
+                backleftmotor.setPower(0.5);
+                frontrightmotor.setPower(-1);
+                frontleftmotor.setPower(1);
             }
 
             if (mode == 0) {
@@ -189,6 +201,7 @@ public class Acompt_FEB extends LinearOpMode {
             else {
                 telemetry.addData("Inverted", "False");
             }
+            telemetry.addData("Intake Power", fRubberWheel.getPower());
             telemetry.update();
 
         }
@@ -286,12 +299,13 @@ public class Acompt_FEB extends LinearOpMode {
         
 
         if (toggle_launch) {
-            return 0.5;
+            return 1;
         }
         else {
             return 0;
         }
     }
 }
+
 
 
